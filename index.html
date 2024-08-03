@@ -5,17 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do App</title>
     <style>
-
+        h1{
+            text-align: center;
+            font-size: 35px;
+        }
     </style>
 </head>
 <body>
     <h1>To-Do App📝</h1>
-    <div>
+    <div id="task-container">
         
     </div>
 
     <script>
+        const tasks = ["buy bag","shopping","read book"];
+        function loadTask(){
+            const taskContainer = document.getElementById("task-container");
+            taskContainer.innerHTML = '';
 
+            for(let task of tasks)
+            {
+                taskContainer.innerHTML +=
+                `
+                <div>
+                    ${task}    
+                </div>
+                `
+            }
+        }
+        loadTask();
     </script>
 </body>
 </html>
