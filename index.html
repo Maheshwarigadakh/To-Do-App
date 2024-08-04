@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do App</title>
     <style>
-        h1{
+        body {
+            background-color: #8EC5FC;
+            background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+        }
+
+        h1 {
             text-align: center;
             font-size: 35px;
         }
-        .todo-item{
+
+        .todo-item {
             border: 1px solid green;
             margin: 5px;
             padding: 5px;
@@ -18,42 +25,47 @@
             justify-content: space-between;
             height: 30px;
         }
-        .btn-del{
+
+        .btn-del {
             height: 20px;
             font-size: 30px;
-            font-size: 10px;
+            font-size: 12px;
             border: 1px solid black;
             background-color: rgb(15, 240, 71);
             border-radius: 10px;
             cursor: pointer;
         }
-       
     </style>
 </head>
+
 <body>
     <h1>To-Do App📝</h1>
-    <div id="task-container"></div>
+    <div id="tasks-container"></div>
 
     <script>
-        const tasks = ["buy bag","shopping","read book"];
-        function loadTask(){
-            const taskContainer = document.getElementById("task-container");
-            taskContainer.innerHTML = '';
+        const tasks = ["buy bag", "shopping", "read book"];
+        function loadTask() {
+            const taskContainer = document.getElementById("tasks-container");
+            tasksContainer.innerHTML = '';
 
-            for(let task of tasks)
-            {
-                taskContainer.innerHTML +=
-                `
+            for (let task of tasks) {
+                tasksContainer.innerHTML +=
+                    `
                 <div class="todo-item">
-                    ${task} 
-                    <button class="btn-del" type="button">Delete</button>    
+                    ${task}
+                    <button class="btn-del" type="button" onclick ="deleteTask('${task}')">Delete</button>
                 </div>
                 `}
         }
-        function delTask(task){
-
-        }
         loadTask();
+
+        function deleteTask(task) {
+            const taskInx = tasks.indexOf(task);
+            tasks.splice(taskInx, 1);
+
+            loadTask();
+        }
     </script>
 </body>
+
 </html>
