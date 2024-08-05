@@ -10,62 +10,128 @@
             background-color: #8EC5FC;
             background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
         }
-
-        h1 {
-            text-align: center;
-            font-size: 35px;
+        .main-container{
+            border: 1;
         }
+        h1{
+    text-align: center;
+    font-size: 50px;
+}
+.art-input-container{
+    display: flex;
+    justify-content: center;
+    margin: 50px auto;
+    gap: 35px;
+}
 
-        .todo-item {
-            border: 1px solid green;
-            margin: 5px;
-            padding: 5px;
-            background-color: rgba(111, 224, 111, 0.737);
-            display: flex;
-            justify-content: space-between;
-            height: 30px;
-        }
+.art-input{
+    width: 350px;
+    height: 35px;
+    border-radius: 5px;
+    font-size: 15px;
+    border: 2px solid black;
+}
+.btn-add{
+    border-radius: 5px;
+    font-size: 15px;
+    border: none;
+    background-color: rgb(213, 21, 21);
+    color: white;
+    cursor: pointer;
+}
+.art-tasks-container{
+    height: 400px;
+    overflow-y: scroll;
+}
+.art-task{
+    display: block;
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 10px auto;
+    width: 450px;
+    font-size: 25px;
+    display: flex;
+    justify-content: space-between;
+    font: bold;
+}
 
-        .btn-del {
-            height: 20px;
-            font-size: 30px;
-            font-size: 12px;
-            border: 1px solid black;
-            background-color: rgb(15, 240, 71);
-            border-radius: 10px;
-            cursor: pointer;
-        }
+.btn-remove{
+    cursor: pointer;
+    height: 25px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(213, 21, 21);
+    color: white;
+}
     </style>
 </head>
+<div class="main-container">
+<h1>To Do App</h1>
+<div id="art-tasks-container" class="art-tasks-container">
 
-<body>
-    <h1>To-Do App📝</h1>
-    <div id="tasks-container"></div>
-
+</div>
+<div class="art-input-container">
+    <input type="text" placeholder="Write Note" class="art-input" id="art-input">
+    <button type="button" class="btn-add" onclick="addtask()">Add Note</button>
+</div>
+</div>
     <script>
-        const tasks = ["buy bag", "shopping", "read book"];
-        function loadTask() {
-            const taskContainer = document.getElementById("tasks-container");
-            tasksContainer.innerHTML = '';
-
-            for (let task of tasks) {
-                tasksContainer.innerHTML +=
-                    `
-                <div class="todo-item">
-                    ${task}
-                    <button class="btn-del" type="button" onclick ="deleteTask('${task}')">Delete</button>
-                </div>
-                `}
-        }
-        loadTask();
-
-        function deleteTask(task) {
-            const taskInx = tasks.indexOf(task);
-            tasks.splice(taskInx, 1);
-
-            loadTask();
-        }
-    </script>
+        const tasks = [];
+       
+       function showfromLocalStorage(){
+           const allTasks = JSON.parse(localStorage.getItem('allTasks'));
+       
+           if(allTasks){
+               tasks.push(...allTasks)
+           }
+       
+           showTasks();
+       }
+       
+       showfromLocalStorage();
+       
+       function showTasks() {
+       
+           localStorage.setItem('allTasks', JSON.stringify(tasks))
+       
+           const artTasks = document.getElementById('art-tasks-container');
+           artTasks.innerHTML = "";
+       
+           for (const task of tasks) {
+               artTasks.innerHTML += `
+           <div class="art-task">
+               ${task}
+       
+               <button type="button" class="btn-remove" onclick="removetask('${task}')">Delete</button>
+           </div>
+           `
+           }
+       }
+       
+       function removetask(task){
+           const taskIndex = tasks.indexOf(task);
+           tasks.splice(taskIndex, 1);
+       
+           showTasks();
+       }
+       
+       function addtask(){
+           const addinput = document.getElementById('art-input');
+           const task = addinput.value;
+       
+           if(!task)
+       {
+           alert('Please Enter A Task')
+           return;
+       }
+       
+       tasks.unshift(task);
+       showTasks();
+       addinput.value='';
+       
+       }
+           </script>
 </body>
 
 </html>
